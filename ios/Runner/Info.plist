@@ -42,8 +42,8 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>NSMicrophoneUsageDescription</key>
-    <string>This application needs to access your microphone</string>
-    <key>NSSpeechRecognitionUsageDescription</key>
-    <string>This application needs the speech recognition permission</string>
+        <string>This application needs to access your microphone</string>
+        <key>NSSpeechRecognitionUsageDescription</key>
+        <string>This application needs the speech recognition permission</string>
 </dict>
 </plist>
