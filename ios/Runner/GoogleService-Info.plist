@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>834737171325-au7bk1ukvm3glpmv4fe5kkig7ej48jed.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.834737171325-au7bk1ukvm3glpmv4fe5kkig7ej48jed</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>834737171325-jbfp5a9l1ate8pchvfav4ldk0ktt6s1m.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCchvoJ9YLau-LgJtZMqi8VqX9y3uxMCV8</string>
+	<key>GCM_SENDER_ID</key>
+	<string>834737171325</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.coeaibbsr.hrfeeds</string>
+	<key>PROJECT_ID</key>
+	<string>ioshrfeedback</string>
+	<key>STORAGE_BUCKET</key>
+	<string>ioshrfeedback.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:834737171325:ios:a090182a9aafb4a76b3a14</string>
+	<key>DATABASE_URL</key>
+	<string>https://ioshrfeedback.firebaseio.com</string>
+</dict>
+</plist>
