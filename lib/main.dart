@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hrs/instant_feed.dart';
-import 'package:hrs/dashboard.dart';
+import 'package:hrs/listpage.dart';
+
 void main() {
   runApp(new MyApp());
 }
@@ -19,7 +20,8 @@ class MyApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         '/page1': (BuildContext context) => new HomePage(),
         '/page2': (BuildContext context) => new InstantFeedPage(),
-        '/page3': (BuildContext context) => new Dashboard()},
+        '/page3': (BuildContext context) => new ListPage()
+      },
       home: new HomePage(),
     );
   }
@@ -123,4 +125,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-

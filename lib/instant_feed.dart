@@ -10,10 +10,9 @@ class InstantFeedPage extends StatefulWidget {
 
 class _InstantFeedPageState extends State<InstantFeedPage> {
 
-  //read Pcount ,Ncount data from dashboard page assign it to pCount,nCount variable.
 
 
-  var selectedEmployee, selectedType,month,pCount=0,nCount=0;
+  var selectedEmployee, selectedType,month,emp,pCount=0,nCount=0;
 
   final GlobalKey<FormState> _formKeyValue = new GlobalKey<FormState>();
   List<String> _feedbackType = <String>[
@@ -36,6 +35,22 @@ class _InstantFeedPageState extends State<InstantFeedPage> {
     'Dec',
 
   ];
+
+  List<String> _empType = <String>[
+    'Manas ',
+    'Su ',
+    'Barsa',
+    'Harsh',
+    'Chinmay',
+    'Priyanka',
+    'Kalyan',
+    'Smruti',
+    'Priti',
+    'Jaya',
+    'Alen',
+    'Souvik'
+
+  ];
   SpeechRecognition _speechRecognition;
   bool _isAvailable = false;
   bool _isListening = false;
@@ -48,30 +63,15 @@ class _InstantFeedPageState extends State<InstantFeedPage> {
     initSpeechRecognizer();
   }
 
-  void createRecord(selectedMonthType,selectedEmployee,selectedFeedbackType,resultText){
-    if (selectedFeedbackType == "Positive")
-    {
-      pCount+=1;
-    }
-    else
-    {
-      nCount+=1;
-    }
-    Firestore.instance.collection('$selectedMonthType').document('$selectedEmployee').collection('feeds').add({
-      'FeedBackType':'$selectedFeedbackType',
-      'FeedBack':'$resultText'
+  void createRecord(selectedType,resultText,emp,month){
+
+    Firestore.instance.collection("Emp").add({
+      'FeedBackType':'$selectedType',
+      'FeedBack':'$resultText',
+      'name':'$emp',
+      'month':'$month'
+
     });
-
-    Firestore.instance.collection('$selectedMonthType').document('$selectedEmployee').setData(
-      {
-        'NCount':nCount,
-        'PCount':pCount
-      }
-
-    );
-
-
-
 
 
   }
@@ -131,7 +131,7 @@ class _InstantFeedPageState extends State<InstantFeedPage> {
         key: _formKeyValue,
         autovalidate: true,
         child: new ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0),
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
           children: <Widget>[
             new Text(
               "Months",
@@ -175,7 +175,7 @@ class _InstantFeedPageState extends State<InstantFeedPage> {
               ],
             ),
             SizedBox(
-              height: 50.0,
+              height: 30.0,
             ),
             new Text(
               "employee",
@@ -185,58 +185,40 @@ class _InstantFeedPageState extends State<InstantFeedPage> {
                   fontFamily: "Roboto"),
             ),
 
-            StreamBuilder<QuerySnapshot>(
-                stream: Firestore.instance.collection("$month").snapshots(),
-                // ignore: missing_return
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData)
-                    const Text("Loading.....");
-
-                  else {
-                    List<DropdownMenuItem> employeeItems = [];
-                    for (int i = 0; i < snapshot.data.documents.length; i++) {
-                      DocumentSnapshot snap = snapshot.data.documents[i];
-                      employeeItems.add(
-                        DropdownMenuItem(
-                          child: Text(
-                            snap.documentID,
-                            style: TextStyle(color: Color(0xff11b719)),
-                          ),
-                          value: "${snap.documentID}",
-                        ),
-                      );
-                    }
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(FontAwesomeIcons.bars,
-                            size: 25.0, color: Color(0xff11b719)),
-                        SizedBox(width: 50.0),
-                        DropdownButton(
-                          items: employeeItems,
-                          onChanged: (employeeValue) {
-                            final snackBar = SnackBar(
-                              content: Text(
-                                'Selected Employee is $employeeValue',
-                                style: TextStyle(color: Color(0xff11b719)),
-                              ),
-                            );
-                            Scaffold.of(context).showSnackBar(snackBar);
-                            setState(() {
-                              selectedEmployee = employeeValue;
-                            });
-                          },
-                          value: selectedEmployee,
-                          isExpanded: false,
-                          hint: new Text(
-                            "Choose employee",
-                            style: TextStyle(color: Color(0xff11b719)),
-                          ),
-                        ),
-                      ],
-                    );
-                  }
-                }),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Icon(
+                  FontAwesomeIcons.bars,
+                  size: 25.0,
+                  color: Color(0xff11b719),
+                ),
+                SizedBox(width: 50.0),
+                DropdownButton(
+                  items: _empType
+                      .map((value) => DropdownMenuItem(
+                    child: Text(
+                      value,
+                      style: TextStyle(color: Color(0xff11b719)),
+                    ),
+                    value: value,
+                  ))
+                      .toList(),
+                  onChanged: (selectedEmpType) {
+                    print('$selectedEmpType');
+                    setState(() {
+                      emp = selectedEmpType;
+                    });
+                  },
+                  value: emp,
+                  isExpanded: false,
+                  hint: Text(
+                    'Choose Employee',
+                    style: TextStyle(color: Color(0xff11b719)),
+                  ),
+                )
+              ],
+            ),
             SizedBox(
               height: 50.0,
             ),
@@ -300,6 +282,7 @@ class _InstantFeedPageState extends State<InstantFeedPage> {
                   },
                 ),
                 FloatingActionButton(
+                 heroTag: "btn1",
                   child: Icon(Icons.mic),
                   onPressed: () {
                     if (_isAvailable && !_isListening)
@@ -310,6 +293,7 @@ class _InstantFeedPageState extends State<InstantFeedPage> {
                   backgroundColor: Colors.pink,
                 ),
                 FloatingActionButton(
+                  heroTag: "btn2",
                   child: Icon(Icons.stop),
                   mini: true,
                   backgroundColor: Colors.deepPurple,
@@ -356,7 +340,7 @@ class _InstantFeedPageState extends State<InstantFeedPage> {
 
                     onPressed: () {
 
-                      createRecord(month,selectedEmployee,selectedType,resultText);
+                      createRecord(selectedType,resultText,emp,month);
                      },
                      //Using Transactions
                      // Firestore.instance.runTransaction((Transaction crudTransaction) async {
@@ -374,3 +358,4 @@ class _InstantFeedPageState extends State<InstantFeedPage> {
     );
   }
 }
+
