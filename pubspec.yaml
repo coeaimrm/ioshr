@@ -28,7 +28,7 @@ dependencies:
   cloud_firestore:
   font_awesome_flutter: ^8.2.0
   #speech recognition
-  speech_recognition: ^0.3.0+1
+  speech_recognition: 
   firebase_database:
 
 
