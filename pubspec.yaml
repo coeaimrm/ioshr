@@ -18,7 +18,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -28,7 +28,7 @@ dependencies:
   cloud_firestore:
   font_awesome_flutter: ^8.2.0
   #speech recognition
-  speech_recognition: 
+  speech_recognition: ^0.3.0+1
   firebase_database:
 
 
